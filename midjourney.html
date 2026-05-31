@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Midjourney v6 完整評測與變現指南 | Ailice</title>
     <style>
         :root { --blue: #2563EB; --bg: #F8FAFC; --gray: #64748B; --border: #E2E8F0; --dark: #1E293B; }
@@ -234,6 +235,12 @@
             
             .sidebar { grid-template-columns: 1fr; } 
             .reason-grid, .review-box { grid-template-columns: 1fr; gap: 16px; }
+        }    
+        
+            /* 💡 這是手機版自動把長中文轉成圖示的魔法（加在 CSS 最後面即可） */
+        @media (max-width: 1024px) {
+            .nav-text-raw { display: none; } /* 手機版隱藏長中文 */
+            .nav-icon-rwd { display: inline-block; } /* 手機版顯示小圖示 */
         }
     </style>
 </head>
