@@ -2,23 +2,23 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ailice Flagship | 專業 AI 導航</title>
     <style>
         :root { --blue: #2563EB; --bg: #F8FAFC; --gray: #64748B; --border: #E2E8F0; }
         body { margin: 0; background: var(--bg); font-family: 'PingFang TC', sans-serif; }
         
         /* 導覽列 */
-        .navbar { 
-            background: white; 
-            height: 80px; 
-            border-bottom: 1px solid var(--border); 
-            position: sticky; 
-            top: 0; 
+        .navbar {
+            background: white;
+            height: 80px;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
             z-index: 1000;
             display: flex;
-            justify-content: center; 
+            justify-content: center;
         }
-        
         .nav-container {
             width: 100%;
             max-width: 1200px;
@@ -30,32 +30,30 @@
 
         .nav-left { display: flex; align-items: center; }
         .nav-right { display: flex; align-items: center; }
-        
         .logo { font-size: 28px; font-weight: 900; color: var(--blue); margin-right: 50px; cursor: pointer; }
-        
         .nav-links { display: flex; gap: 35px; }
 
-        /* 左側大選單核心邏輯 (維持 Hover 觸發) */
-        .mega-trigger { 
-            position: relative; 
-            cursor: pointer; 
-            padding: 30px 0; 
-            color: var(--gray); 
-            font-weight: 600; 
+        /* 左側大選單核心邏輯 */
+        .mega-trigger {
+            position: relative;
+            cursor: pointer;
+            padding: 30px 0;
+            color: var(--gray);
+            font-weight: 600;
             font-size: 15px;
         }
 
-        .mega-content { 
-            position: absolute; 
-            top: 80px; 
-            left: 0; 
-            background: white; 
+        .mega-content {
+            position: absolute;
+            top: 80px;
+            left: 0;
+            background: white;
             width: 450px;
-            border-radius: 16px; 
+            border-radius: 16px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            display: none; 
-            padding: 25px; 
-            border: 1px solid var(--border); 
+            display: none;
+            padding: 25px;
+            border: 1px solid var(--border);
             z-index: 2000;
         }
 
@@ -78,32 +76,28 @@
         .mega-col a:hover { color: var(--blue); padding-left: 5px; }
 
         /* 搜尋框 */
-        .search-box { 
-            background: #F1F5F9; border-radius: 99px; padding: 10px 20px; 
+        .search-box {
+            background: #F1F5F9; border-radius: 99px; padding: 10px 20px;
             display: flex; align-items: center; width: 220px; margin-left: 20px;
         }
         .search-box input { border: none; background: transparent; outline: none; margin-left: 8px; width: 100%; }
         
-        /* 右側預算選單核心邏輯 (JS 點擊控制) */
+        /* 右側預算選單 */
         .budget-entry { font-size: 15px; }
-        
-        /* 透過 JavaScript 控制這個 show 類名切換顯示 */
-        .budget-matrix-content.show {
-            display: block !important;
-        }
+        .budget-matrix-content.show { display: block !important; }
 
         .budget-matrix-content {
-            position: absolute; 
-            top: 65px !important;       /* 優化垂直間距：向上提，緊貼導覽列藍線 */
-            width: 260px !important;    
-            right: -300px !important;   /* 保持你最完美的對齊位置 */             
-            left: auto !important;      
+            position: absolute;
+            top: 65px !important;
+            width: 260px !important;
+            right: -300px !important;
+            left: auto !important;
             padding: 20px !important;
             border-radius: 20px !important;
-            display: none;              /* 預設隱藏，不再跟隨 hover */
-            background: white; 
+            display: none;
+            background: white;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
-            border: 1px solid var(--border); 
+            border: 1px solid var(--border);
             z-index: 2000;
         }
 
@@ -121,8 +115,8 @@
             display: block;
             text-align: center;
             padding: 10px 12px;
-            border-radius: 12px;       
-            background: #F1F5F9;       
+            border-radius: 12px;
+            background: #F1F5F9;
             color: #475569;
             text-decoration: none;
             font-size: 14px;
@@ -137,26 +131,23 @@
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
         }
 
-        /* --- 主內容區：整體極致置中 --- */
-        .content { 
-            max-width: 1200px; 
-            margin: 40px auto; 
-            padding: 0 50px; 
+        /* 主內容區 */
+        .content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 50px;
             box-sizing: border-box;
         }
-        
-        /* 膠囊列：置中排版 */
-        .capsule-bar { 
-            display: flex; 
-            justify-content: center; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            margin-bottom: 40px; 
+        .capsule-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 40px;
         }
-        
-        .capsule { 
-            padding: 10px 25px; border-radius: 99px; background: white; 
-            border: 1px solid var(--border); cursor: pointer; 
+        .capsule {
+            padding: 10px 25px; border-radius: 99px; background: white;
+            border: 1px solid var(--border); cursor: pointer;
             text-decoration: none; color: var(--gray); font-weight: 600;
             font-size: 14px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -164,23 +155,22 @@
         .capsule:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); background: #f1f5f9; }
         .capsule.active { background: var(--blue); color: white; border: none; }
         
-        /* 卡片網格：置中核心 */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); 
-            gap: 30px; 
-            justify-content: center; 
+        /* 卡片網格 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+            justify-content: center;
             justify-items: center;
         }
-        
-        .card { 
-            background: white; 
-            border-radius: 24px; 
-            overflow: hidden; 
-            border: 1px solid var(--border); 
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border);
             transition: 0.3s;
             width: 100%;
-            max-width: 360px; 
+            max-width: 360px;
         }
         .card:hover { transform: translateY(-10px); box-shadow: 0 20px 30px rgba(0,0,0,0.05); }
         .img { height: 200px; background-size: cover; background-position: center; }
@@ -209,7 +199,6 @@
                             </div>
                         </div>
                     </div>
-        
                     <div class="mega-trigger">語言與寫作 ▾
                         <div class="mega-content">
                             <div class="mega-grid">
@@ -226,7 +215,6 @@
                             </div>
                         </div>
                     </div>
-        
                     <div class="mega-trigger">專業領域模型 ▾
                         <div class="mega-content">
                             <div class="mega-grid">
@@ -245,7 +233,6 @@
                     </div>
                 </div>
             </div>
-        
             <div class="nav-right">
                 <div class="mega-trigger budget-entry" id="budgetBtn">
                     預算範圍 ▾
@@ -258,7 +245,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="search-box">
                     <input type="text" placeholder="搜尋工具...">
                 </div>
@@ -285,7 +271,6 @@
                     <a href="midjourney.html" style="color: var(--blue); text-decoration: none; font-weight: bold; font-size: 14px;">查看詳細評測 →</a>
                 </div>
             </div>
-
             <div class="card">
                 <div class="img" style="background-image:url('https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?w=600')"></div>
                 <div style="padding:25px; text-align: left;">
@@ -295,7 +280,6 @@
                     <a href="#" style="color: var(--blue); text-decoration: none; font-weight: bold; font-size: 14px;">查看詳細評測 →</a>
                 </div>
             </div>
-
             <div class="card">
                 <div class="img" style="background-image:url('https://images.unsplash.com/photo-1677442136019-21780efad99a?w=600')"></div>
                 <div style="padding:25px; text-align: left;">
@@ -311,23 +295,13 @@
     <script>
         const budgetBtn = document.getElementById('budgetBtn');
         const budgetMenu = document.getElementById('budgetMenu');
-
-        // 1. 點擊按鈕：切換選單展開或關閉
         budgetBtn.addEventListener('click', function(e) {
-            e.stopPropagation(); // 防止事件向上冒泡導致立刻被關閉
+            e.stopPropagation();
             budgetMenu.classList.toggle('show');
         });
-
-        // 2. 點擊選單內部：不觸發關閉事件
-        budgetMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // 3. Click Outside：點擊頁面任何空白處，關閉選單
         document.addEventListener('click', function() {
             budgetMenu.classList.remove('show');
         });
     </script>
-
 </body>
 </html>
